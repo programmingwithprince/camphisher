@@ -26,14 +26,11 @@ def post():
 			datauri = request.get_json()['data']
 			pos = datauri.find(',')+1
 			data=datauri[pos:]
-			print('doing')
 			binary_data = a2b_base64(data)
-			print('confirm')
 			fd = open(f'image_{time.time()}.jpeg', 'wb')
 			fd.write(binary_data)
 			fd.close()
-			print('Done')
-			print(os.listdir())
+			print('Captured')
 		return 'posted'
 		
 if __name__ == "__main__":
