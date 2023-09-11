@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Quiz Application</title>
+</head>
+<body>
+  <style type="text/css" media="all">
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.quiz-container {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+}
+
+.question {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+}
+
+.options button {
+    margin: 5px 0;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.options button:hover {
+    background-color: #ddd;
+}
+
+#next-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#next-button:hover {
+    background-color: #0056b3;
+}
+
+.result {
+    font-size: 20px;
+    margin-top: 20px;
+}
+  </style>
+    <div class="quiz-container">
+        <div class="question">
+            <!-- Quiz questions will be inserted here dynamically -->
+        </div>
+        <div class="options">
+            <!-- Answer options will be inserted here dynamically -->
+        </div>
+        <button id="next-button">Next</button>
+        <div class="result">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Quiz Application</title>
+</head>
+<body>
+  <style type="text/css" media="all">
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.quiz-container {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+}
+
+.question {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+}
+
+.options button {
+    margin: 5px 0;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.options button:hover {
+    background-color: #ddd;
+}
+
+#next-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#next-button:hover {
+    background-color: #0056b3;
+}
+
+.result {
+    font-size: 20px;
+    margin-top: 20px;
+}
+  </style>
+    <div class="quiz-container">
+        <div class="question">
+            <!-- Quiz questions will be inserted here dynamically -->
+        </div>
+        <div class="options">
+            <!-- Answer options will be inserted here dynamically -->
+        </div>
+        <button id="next-button">Next</button>
+        <div class="result">
+            <!-- Quiz result will be displayed here dynamically -->
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      const questions = [
+    {
+        question: "What is the capital of France?",
+        options: ["London", "Berlin", "Paris", "Madrid"],
+        answer: "Paris",
+    },
+    {
+        question: "Which planet is known as the Red Planet?",
+        options: ["Earth", "Mars", "Venus", "Jupiter"],
+        answer: "Mars",
+    },
+    {
+        question: "How many continents are there?",
+        options: ["3", "5", "6", "7"],
+        answer: "7",
+    },
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+
+const questionElement = document.querySelector(".question");
+const optionsElement = document.querySelector(".options");
+const resultElement = document.querySelector(".result");
+const nextButton = document.getElementById("next-button");
+
+function showQuestion() {
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsElement.innerHTML = "";
+
+    currentQuestion.options.forEach((option) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => checkAnswer(option));
+        optionsElement.appendChild(button);
+    });
+}
+
+function checkAnswer(selectedOption) {
+    const currentQuestion = questions[currentQuestionIndex];
+
+    if (selectedOption === currentQuestion.answer) {
+        score++;
+    }
+
+    currentQuestionIndex++;
+
+    if (currentQuestionIndex < questions.length) {
+        showQuestion();
+    } else {
+        showResult();
+    }
+}
+
+function showResult() {
+    questionElement.style.display = "none";
+    optionsElement.style.display = "none";
+    nextButton.style.display = "none";
+    resultElement.textContent = `You scored ${score} out of ${questions.length} questions!`;
+}
+
+nextButton.addEventListener("click", () => {
+    if (currentQuestionIndex < questions.length) {
+        showQuestion();
+    } else {
+        showResult();
+    }
+});
+
+showQuestion();
+    </script>
+</body>
+</html>￼Enter            <!-- Quiz result will be displayed here dynamically -->
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      const questions = [
+    {
+        question: "What is the capital of France?",
+        options: ["London", "Berlin", "Paris", "Madrid"],
+        answer: "Paris",
+    },
+    {
+        question: "Which planet is known as the Red Planet?",
+        options: ["Earth", "Mars", "Venus", "Jupiter"],
+        answer: "Mars",
+    },
+    {
+        question: "How many continents are there?",
+        options: ["3", "5", "6", "7"],
+        answer: "7",
+    },
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+
+questionElement = document.querySelector(".question");
+const optionsElement = document.querySelector(".options");
+const resultElement = document.querySelector(".result");
+const nextButton = document.getElementById("next-button");
+
+function showQuestion() {
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsElement.innerHTML = "";
+
+    currentQuestion.options.forEach((option) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => checkAnswer(option));
+        optionsElement.appendChild(button);
+    });
+}
+
+function checkAnswer(selectedOption) {
+    const currentQuestion = questions[currentQuestionIndex];
+
+    if (selectedOption === currentQuestion.answer) {
+        score++;
+    }
+
+    currentQuestionIndex++;
